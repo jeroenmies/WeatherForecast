@@ -1,3 +1,13 @@
 .input-group {
     width: 600px;
+    margin: 20px 0px;
+}
+
+td, th {
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+svg {
+    height: 150px;
 }
