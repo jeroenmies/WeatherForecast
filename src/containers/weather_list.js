@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import Chart from "../components/chart";
+import * as _ from "lodash";
 
 class WeatherList extends Component {
     render() {
@@ -9,9 +10,9 @@ class WeatherList extends Component {
                 <thead>
                 <tr>
                     <th>City</th>
-                    <th>Temperature</th>
-                    <th>Pressure</th>
-                    <th>Humidity</th>
+                    <th>Temperature<br />(C)</th>
+                    <th>Pressure<br />(hPa)</th>
+                    <th>Humidity<br />(%)</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -23,7 +24,7 @@ class WeatherList extends Component {
 
     renderWeather(cityData) {
         const name = cityData.city.name;
-        const temps = cityData.list.map(weather => weather.main.temp);
+        const temps = _.map(cityData.list.map(weather => weather.main.temp), (temp) => temp - 273);
         const humidities = cityData.list.map(weather => weather.main.humidity);
         const pressures = cityData.list.map(weather => weather.main.pressure);
 
@@ -31,13 +32,13 @@ class WeatherList extends Component {
             <tr key={name}>
                 <td>{name}</td>
                 <td>
-                    <Chart data={temps} color="orange"/>
+                    <Chart data={temps} color="orange" unit="C"/>
                 </td>
                 <td>
-                    <Chart data={pressures} color="green"/>
+                    <Chart data={pressures} color="green" unit="hPa"/>
                 </td>
                 <td>
-                    <Chart data={humidities} color="black"/>
+                    <Chart data={humidities} color="black" unit="%"/>
                 </td>
             </tr>
         )
